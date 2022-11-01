@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# react-toast editor 예시 레포지토리
+- 최초작성일: 2022.11.01.
+## 개발환경
+- macos
+- vscode
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 사용된 라이브러리
+- react v17 : 16도 안되고 18도 안됩니다. 오직 17만 가능합니다.
+- react-dom v17 : react 버전에 따라갔습니다. 아직까지는 문제 없습니다.
+- react-router-dom v5: v6 가 나오기는 했지만, 다들 익숙할 v5 로 작성했습니다.
+- 기타: package.json 확인 부탁드립니다.
 
-## Available Scripts
+## 구성
+- editor
+- viewer
+- 정보: sessionStorage 에 저장합니다. 그래서 에디터에서 쓴 내용을 외부와의 통신 없이 바로 뷰어에서 확인할 수 없습니다.
 
-In the project directory, you can run:
+## 구현
+- 기본적인 문서작성
+    - 작성 후 저장 (html 형식)
+- 한글 적용 (i18n)
+- 작성내용 확인
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 추가 예정
+- toast editor 는 외부 이미지를 base64 로 저장합니다.
+    - 그렇지만 이걸 그대로 DB에 올리면 말이 안되겠죠.
+    - 이미지는 s3 에 저장하고, s3에서 이미지 링크를 받아 대체하는 내용을 추가 할 예정입니다.
+        - 그 과정에서 proxy 도 추가 예정입니다.
+    - 될지는 모르겠지만 image 저장 시 png 나 jpg 가 아닌 webp 형식 저장도 고려하는 중입니다.
+        - 다른 프로젝트에서는
+            - 별도의 ec2 nodejs 서버로 image 전송 후
+            - sharp 라이브러리를 통해 webp 으로 변환
+            - 해당 image를 s3에 저장하고
+            - image url 값을 반환
+            - 함으로써 문제를 해결하였습니다.
+- 배포
+    - 배포를 위해 build 를 하기 위해서는 env-cmd 세팅이 필요합니다.
