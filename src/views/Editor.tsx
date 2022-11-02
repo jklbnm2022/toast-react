@@ -31,6 +31,7 @@ const EditorView = ({ content }: { content: string }) => {
     callback(url, "alt text");
     return false;
   };
+  // 참고: https://leego.tistory.com/entry/Toast-UI-Editor-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%B2%A8%EB%B6%80%ED%95%98%EA%B8%B0?category=512184
 
   return (
     <Container>
