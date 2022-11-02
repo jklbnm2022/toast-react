@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { setSessionStorage } from "../utils/storages/sessionStorages";
 
 import { Container } from "../components/containers/Container";
+import uploadImageInS3 from "../utils/aws/s3/uploadImageInS3";
 
 const EditorView = ({ content }: { content: string }) => {
   const editorRef = useRef<Editor>(null);
@@ -22,6 +23,15 @@ const EditorView = ({ content }: { content: string }) => {
   };
   //   출처: https://curryyou.tistory.com/470 [카레유:티스토리]
 
+  const onUploadImage = async (
+    blob: Blob | File,
+    callback: (url: string, text?: string) => void
+  ) => {
+    const url: string = await uploadImageInS3(blob);
+    callback(url, "alt text");
+    return false;
+  };
+
   return (
     <Container>
       <h3>Editor Toast</h3>
@@ -33,6 +43,9 @@ const EditorView = ({ content }: { content: string }) => {
         initialEditType="wysiwyg"
         useCommandShortcut={true}
         language="ko"
+        hooks={{
+          addImageBlobHook: onUploadImage,
+        }}
       />
       <button onClick={handleRegisterButton}>등록</button>
     </Container>
