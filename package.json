@@ -16,9 +16,11 @@
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "GENERATE_SOURCEMAP=false react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "GENERATE_SOURCEMAP=false react-scripts start",
+    "deploy": "env-cmd -f .env.production serve -s build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +45,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "env-cmd": "^10.1.0",
     "http-proxy-middleware": "^2.0.6"
   }
 }
